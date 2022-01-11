@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  tasks-api:
+    container_name: tasks-api
+    build:
+      context: .
+      target: development
+      dockerfile: Dockerfile
+    environment:
+      - POSTGRES_DB=tasks_api
+      - POSTGRES_USER=tasks_api
+      - POSTGRES_PASSWORD=12345678
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: yarn start:dev
+    restart: on-failure
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=tasks_api
+      - POSTGRES_USER=tasks_api
+      - POSTGRES_PASSWORD=12345678
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db_data:
+
