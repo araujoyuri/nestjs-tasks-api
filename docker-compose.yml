@@ -7,6 +7,7 @@ services:
       context: .
       target: development
       dockerfile: Dockerfile
+      network: host
     environment:
       - POSTGRES_DB=tasks_api
       - POSTGRES_USER=tasks_api
