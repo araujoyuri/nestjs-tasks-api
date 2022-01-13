@@ -8,10 +8,8 @@ services:
       target: development
       dockerfile: Dockerfile
       network: host
-    environment:
-      - POSTGRES_DB=tasks_api
-      - POSTGRES_USER=tasks_api
-      - POSTGRES_PASSWORD=12345678
+    env_file:
+      - .env.stage.dev
     ports:
       - "3000:3000"
     volumes:
